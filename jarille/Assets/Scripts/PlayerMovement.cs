@@ -11,6 +11,11 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
 
+    //to detect if the floor is walkable or not
+
+    public float checkDistance = 0.5f;
+    public LayerMask groundLayer;
+
     // controls yeah
     private PlayerControls controls;
     
@@ -47,7 +52,14 @@ public class PlayerMovement : MonoBehaviour
     // the linear velocity = movement(the vector in controls) x speed(we can change)
     void FixedUpdate()
     {
-        rb.linearVelocity = movement * moveSpeed;
+        if (CanMove(movement))
+        {
+            rb.linearVelocity = movement * moveSpeed;
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
     }
     //this is for the followers to move a little later
     void LateUpdate()
@@ -60,5 +72,19 @@ public class PlayerMovement : MonoBehaviour
         
         if (positionHistory.Count > 100)
             positionHistory.RemoveAt(positionHistory.Count - 1);
+    }
+    bool CanMove(Vector2 direction)
+    {
+        if (direction == Vector2.zero)
+            return true;
+
+        RaycastHit2D hit = Physics2D.Raycast(
+            transform.position,
+            direction,
+            checkDistance,
+            groundLayer
+        );
+
+        return hit.collider != null;
     }
 }
