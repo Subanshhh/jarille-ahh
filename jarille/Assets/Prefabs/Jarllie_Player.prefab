@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5896591453853279087}
   - component: {fileID: 4076626694679309809}
   m_Layer: 0
-  m_Name: Follower  (1)
+  m_Name: Lania_follower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,7 +120,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCombat
   characterName: 
-  attackPower: 5
+  maxHealth: 50
+  currentHealth: 0
+  healthBar: {fileID: 0}
+  highlight: {fileID: 0}
 --- !u!1 &3759197850359876470
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +137,7 @@ GameObject:
   - component: {fileID: 5994475081892009095}
   - component: {fileID: 3544496599340026290}
   m_Layer: 0
-  m_Name: Follower  (2)
+  m_Name: Koni_follower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,7 +244,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCombat
   characterName: 
-  attackPower: 5
+  maxHealth: 50
+  currentHealth: 0
+  healthBar: {fileID: 0}
+  highlight: {fileID: 0}
 --- !u!1 &5530405451780727448
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +261,7 @@ GameObject:
   - component: {fileID: 502455224854477274}
   - component: {fileID: 5653949388471641555}
   m_Layer: 0
-  m_Name: 'Follower '
+  m_Name: Crow_follower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -362,7 +368,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCombat
   characterName: 
-  attackPower: 5
+  maxHealth: 50
+  currentHealth: 0
+  healthBar: {fileID: 0}
+  highlight: {fileID: 0}
 --- !u!1 &6470055840524119298
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,4 +566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCombat
   characterName: 
-  attackPower: 5
+  maxHealth: 50
+  currentHealth: 0
+  healthBar: {fileID: 0}
+  highlight: {fileID: 0}
