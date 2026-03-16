@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class CameraFollow : MonoBehaviour
 {
     public Transform target;
-    public BoxCollider2D fieldCollider;
+    public TilemapCollider2D fieldCollider;
 
     [Header("Camera Padding Outside Field")]
     public float horizontalPadding = 2f;

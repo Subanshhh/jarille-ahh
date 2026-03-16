@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 public class CombatManager : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class CombatManager : MonoBehaviour
     public int neo = 0;
     public int maxNeo = 10;
 
+    public TMP_Text neoText;
+
     void Awake()
     {
         Instance = this;
@@ -30,10 +33,20 @@ public class CombatManager : MonoBehaviour
     // ✅ This is the function the buttons call
     public CharacterCombat GetCurrentCharacter()
     {
-        if (party.Count == 0) return null;
+        if (party == null || party.Count == 0)
+            return null;
+
+        if (currentCharacter < 0 || currentCharacter >= party.Count)
+            return null;
+
         return party[currentCharacter];
     }
 
+    void UpdateNeoUI()
+    {
+        if (neoText != null)
+            neoText.text = "NEO: " + neo + " / " + maxNeo;
+    }
     // Called by CharacterCombat after each turn
     public void CharacterFinishedTurn()
     {
@@ -106,12 +119,16 @@ public class CombatManager : MonoBehaviour
         neo += amount;
         neo = Mathf.Clamp(neo, 0, maxNeo);
 
+        UpdateNeoUI();
+
         Debug.Log("NEO: " + neo);
     }
 
     // Called when player collides with enemy
     public void StartCombat()
     {
+        neo = 0;
+        UpdateNeoUI();
         combatPanel.SetActive(true);
         currentCharacter = 0;
 

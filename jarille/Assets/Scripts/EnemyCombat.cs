@@ -7,6 +7,9 @@ public class EnemyCombat : MonoBehaviour
     public int maxHealth = 50;
     public int currentHealth = 50;
 
+    public GameObject damageNumberPrefab;
+    public Transform damageSpawnPoint;
+
     [Header("UI")]
     public Slider healthBar; // assign this in the inspector
 
@@ -38,6 +41,14 @@ public class EnemyCombat : MonoBehaviour
         Debug.Log(name + " HP: " + currentHealth);
 
         UpdateHealthUI(); // update slider whenever damaged
+
+        if (damageNumberPrefab != null && damageSpawnPoint != null)
+        {
+            GameObject dmg = Instantiate(damageNumberPrefab, damageSpawnPoint.position, Quaternion.identity, Object.FindFirstObjectByType<Canvas>().transform);
+            dmg.GetComponent<DamageNumber>().SetDamage(damage);
+        }
+
+        UIShake.Instance.Shake(05f, 0.15f);
 
         if (currentHealth <= 0)
         {

@@ -7,11 +7,17 @@ public class CharacterCombat : MonoBehaviour
     public string characterName;
     public int maxHealth = 50;
     public int currentHealth;
-    
+
+    public GameObject damageNumberPrefab;
+    public Transform damageSpawnPoint;
 
     [Header("UI")]
     public Slider healthBar;
     public GameObject highlight;
+
+    [Header("Damage Settings")]
+    public int normalMinDamage = 4;
+    public int normalMaxDamage = 7;
 
     void Awake()
     {
@@ -22,14 +28,17 @@ public class CharacterCombat : MonoBehaviour
     public void NormalAttack()
     {
         Debug.Log("NormalAttack pressed for " + characterName);
-        CombatManager.Instance.enemy.TakeDamage(5);
+
+        int damage = Random.Range(normalMinDamage, normalMaxDamage + 1);
+
+        CombatManager.Instance.enemy.TakeDamage(damage);
         CombatManager.Instance.GainNeo(1);
+
         CombatManager.Instance.CharacterFinishedTurn();
     }
 
     public void ElementAttack()
     {
-        // Check if enough NEO
         if (CombatManager.Instance.neo < 2)
         {
             Debug.Log("Not enough NEO!");
@@ -39,10 +48,20 @@ public class CharacterCombat : MonoBehaviour
         // Spend NEO
         CombatManager.Instance.GainNeo(-2);
 
-        // Deal element damage (example)
-        CombatManager.Instance.enemy.TakeDamage(8);
+        int damage;
 
-        // End turn
+        // 90% success chance
+        if (Random.value <= 0.9f)
+        {
+            damage = normalMaxDamage;
+        }
+        else
+        {
+            damage = 1;
+        }
+
+        CombatManager.Instance.enemy.TakeDamage(damage);
+
         CombatManager.Instance.CharacterFinishedTurn();
     }
 
@@ -52,6 +71,14 @@ public class CharacterCombat : MonoBehaviour
         currentHealth = Mathf.Max(currentHealth, 0);
         UpdateHealthUI();
         Debug.Log(characterName + " HP: " + currentHealth);
+
+        UIShake.Instance.Shake(18f, 0.15f);
+
+        if (damageNumberPrefab != null && damageSpawnPoint != null)
+        {
+            GameObject dmg = Instantiate(damageNumberPrefab, damageSpawnPoint.position, Quaternion.identity, Object.FindFirstObjectByType<Canvas>().transform);
+            dmg.GetComponent<DamageNumber>().SetDamage(damage);
+        }
     }
 
     void UpdateHealthUI()

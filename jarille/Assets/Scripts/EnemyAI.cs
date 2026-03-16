@@ -13,6 +13,8 @@ public class EnemyAI : MonoBehaviour
     private float wanderTimer;
     private float wanderInterval = 2f;
 
+    public LayerMask groundLayer;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,7 +37,19 @@ public class EnemyAI : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.linearVelocity = movement * moveSpeed;
+        Vector2 nextPos = rb.position + movement * moveSpeed * Time.fixedDeltaTime;
+
+        // Check if next position is still on ground
+        Collider2D groundCheck = Physics2D.OverlapCircle(nextPos, 0.2f, groundLayer);
+
+        if (groundCheck != null)
+        {
+            rb.linearVelocity = movement * moveSpeed;
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
     }
 
     void ChasePlayer()
