@@ -23,6 +23,9 @@ public class PlayerMovement : MonoBehaviour
     public List<Vector2> positionHistory = new List<Vector2>();
     public float recordDistance = 0.1f;
 
+    public float interactDistance = 1.5f;
+    private Vector2 lastMoveDirection = Vector2.down;
+
     //at awake, the rigidbody and controls are setup
     void Awake()
     {
@@ -46,7 +49,25 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Vector2 input = controls.Player.Move.ReadValue<Vector2>();
+
+        if (input != Vector2.zero)
+        {
+            lastMoveDirection = input.normalized;
+        }
+
         movement = input.normalized;
+
+        if (controls.Player.Interact.triggered)
+        {
+            if (DialogueManager.Instance.dialoguePanel.activeSelf)
+            {
+                DialogueManager.Instance.ShowNextLine();
+            }
+            else
+            {
+                TryInteract();
+            }
+        }
     }
 
     // the linear velocity = movement(the vector in controls) x speed(we can change)
@@ -72,6 +93,23 @@ public class PlayerMovement : MonoBehaviour
         
         if (positionHistory.Count > 100)
             positionHistory.RemoveAt(positionHistory.Count - 1);
+    }
+    public float interactRadius = 1.2f;
+    public LayerMask interactLayer;
+
+    void TryInteract()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, interactRadius, interactLayer);
+
+        if (hit != null)
+        {
+            Interactable interactable = hit.GetComponent<Interactable>();
+
+            if (interactable != null)
+            {
+                interactable.Interact();
+            }
+        }
     }
     bool CanMove(Vector2 direction)
     {
