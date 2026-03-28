@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
+
 public class PlayerMovement : MonoBehaviour
 {
     // set uhh speed in inspector
@@ -23,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     public List<Vector2> positionHistory = new List<Vector2>();
     public float recordDistance = 0.1f;
 
+    private Animator animator;
+
     public float interactDistance = 1.5f;
     private Vector2 lastMoveDirection = Vector2.down;
 
@@ -31,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         controls = new PlayerControls();
+        animator = GetComponent<Animator>();
     }
 
     // controls are enabled
@@ -56,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         movement = input.normalized;
+
+        animator.SetFloat("Speed", movement.magnitude);
 
         if (controls.Player.Interact.triggered)
         {

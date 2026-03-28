@@ -5,7 +5,8 @@ public class SaveLoader : MonoBehaviour
 {
     void Start()
     {
-        Load();
+       // Load();
+        
     }
 
     public void Load()
