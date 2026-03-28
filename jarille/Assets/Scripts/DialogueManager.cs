@@ -1,7 +1,9 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -9,9 +11,12 @@ public class DialogueManager : MonoBehaviour
 
     public GameObject dialoguePanel;
     public TMP_Text dialogueText;
+    //public TMP_Text nameText;
+    public Image portraitImage;
 
-    private Queue<string> lines = new Queue<string>();
+    private Queue<DialogueLine> lines = new Queue<DialogueLine>();
     private bool isTyping = false;
+    private Action onDialogueEndCallback;
 
     void Awake()
     {
@@ -19,11 +24,12 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
     }
 
-    public void StartDialogue(string[] dialogueLines)
+    public void StartDialogue(DialogueLine[] dialogueLines, Action onEnd = null)
     {
         lines.Clear();
+        onDialogueEndCallback = onEnd;
 
-        foreach (string line in dialogueLines)
+        foreach (DialogueLine line in dialogueLines)
         {
             lines.Enqueue(line);
         }
@@ -42,16 +48,21 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        string line = lines.Dequeue();
-        StartCoroutine(TypeLine(line));
+        DialogueLine line = lines.Dequeue();
+
+        // Update UI
+        //nameText.text = line.characterName;
+        portraitImage.sprite = line.characterSprite;
+
+        StartCoroutine(TypeLine(line.text));
     }
 
-    IEnumerator TypeLine(string line)
+    IEnumerator TypeLine(string text)
     {
         isTyping = true;
         dialogueText.text = "";
 
-        foreach (char c in line)
+        foreach (char c in text)
         {
             dialogueText.text += c;
             yield return new WaitForSeconds(0.02f);
@@ -63,5 +74,7 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         dialoguePanel.SetActive(false);
+
+        onDialogueEndCallback?.Invoke();
     }
 }
