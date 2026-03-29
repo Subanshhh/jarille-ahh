@@ -4,25 +4,15 @@ public class DialogueTrigger : MonoBehaviour
 {
     public DialogueLine[] dialogueLines;
 
-    private bool triggered = false;
-
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Something entered trigger: " + collision.name);
-
-        if (triggered) return;
-
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("PLAYER ENTERED TRIGGER");
-            triggered = true;
+            // Start dialogue
+            DialogueManager.Instance.StartDialogue(dialogueLines);
 
-            DialogueManager.Instance.StartDialogue(dialogueLines, OnDialogueEnd);
+            // Destroy trigger immediately
+            Destroy(gameObject);
         }
-    }
-
-    void OnDialogueEnd()
-    {
-        Destroy(gameObject);
     }
 }

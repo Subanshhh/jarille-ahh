@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class DialogueManager : MonoBehaviour
     private bool isTyping = false;
     private Action onDialogueEndCallback;
 
+    public bool isDialogueActive = false;
+
     void Awake()
     {
         Instance = this;
@@ -26,6 +29,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(DialogueLine[] dialogueLines, Action onEnd = null)
     {
+        isDialogueActive = true;
         lines.Clear();
         onDialogueEndCallback = onEnd;
 
@@ -73,8 +77,18 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        isDialogueActive = false;
         dialoguePanel.SetActive(false);
 
         onDialogueEndCallback?.Invoke();
+    }
+    void Update()
+    {
+        if (!isDialogueActive) return;
+
+        if (Keyboard.current.fKey.wasPressedThisFrame)
+        {
+            ShowNextLine();
+        }
     }
 }

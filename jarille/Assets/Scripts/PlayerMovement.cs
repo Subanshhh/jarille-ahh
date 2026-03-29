@@ -59,6 +59,11 @@ public class PlayerMovement : MonoBehaviour
             lastMoveDirection = input.normalized;
         }
 
+        if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
+        {
+            movement = Vector2.zero;
+            return;
+        }
         movement = input.normalized;
 
         animator.SetFloat("Speed", movement.magnitude);
@@ -79,6 +84,11 @@ public class PlayerMovement : MonoBehaviour
     // the linear velocity = movement(the vector in controls) x speed(we can change)
     void FixedUpdate()
     {
+        if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
         if (CanMove(movement))
         {
             rb.linearVelocity = movement * moveSpeed;
