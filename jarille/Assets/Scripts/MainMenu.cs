@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey("RoomKey"))
         {
-            SceneManager.LoadScene("Room1"); // first room
+            SceneManager.LoadScene("TestScene"); // first room
             return;
         }
 

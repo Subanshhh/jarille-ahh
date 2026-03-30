@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour
 {
@@ -22,8 +23,13 @@ public class CombatManager : MonoBehaviour
     [Header("NEO Resource")]
     public int neo = 0;
     public int maxNeo = 10;
-
     public TMP_Text neoText;
+
+    [Header("Death UI")]
+    public GameObject youDiedPanel;
+    public string firstSceneName = "TestScene";
+
+    
 
     void Awake()
     {
@@ -86,9 +92,11 @@ public class CombatManager : MonoBehaviour
 
         if (!anyAlive)
         {
-            Debug.Log("All characters dead. Combat ends.");
-            CombatManager.Instance.EndCombat();
-            yield break; // exit coroutine
+            Debug.Log("All characters dead.");
+
+            StartCoroutine(HandleDeath());
+
+            yield break;
         }
 
         // Enemy attacks
@@ -110,10 +118,23 @@ public class CombatManager : MonoBehaviour
         {
             // Everyone dead after enemy attack
             Debug.Log("All characters died during enemy attack");
-            CombatManager.Instance.EndCombat();
+            StartCoroutine(HandleDeath());
+
+            yield break;
         }
     }
 
+    IEnumerator HandleDeath()
+    {
+        combatPanel.SetActive(false);
+
+        if (youDiedPanel != null)
+            youDiedPanel.SetActive(true);
+
+        yield return new WaitForSeconds(2f); // dramatic pause 😤
+
+        SceneManager.LoadScene(firstSceneName);
+    }
     public void GainNeo(int amount)
     {
         neo += amount;
