@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
@@ -56,6 +56,10 @@ public class PlayerMovement : MonoBehaviour
     // the player's move action of vector 2 should be normalized for movement
     void Update()
     {
+        if (CombatManager.Instance != null && CombatManager.Instance.isInCombat)
+        {
+            return; // 🚫 stop movement completely
+        }
         Vector2 input = controls.Player.Move.ReadValue<Vector2>();
 
         if (input != Vector2.zero)
@@ -120,6 +124,11 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.linearVelocity = Vector2.zero;
+        }
+        if (CombatManager.Instance != null && CombatManager.Instance.isInCombat)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
         }
     }
     //this is for the followers to move a little later

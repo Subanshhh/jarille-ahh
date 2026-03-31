@@ -7595,6 +7595,7 @@ MonoBehaviour:
   damageNumberPrefab: {fileID: 0}
   damageSpawnPoint: {fileID: 0}
   healthBar: {fileID: 484345202}
+  maxHP: 770
 --- !u!114 &1893766767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7610,6 +7611,7 @@ MonoBehaviour:
   moveSpeed: 0
   detectionRange: 0
   player: {fileID: 560522942}
+  combatData: {fileID: 1893766766}
   groundLayer:
     serializedVersion: 2
     m_Bits: 0

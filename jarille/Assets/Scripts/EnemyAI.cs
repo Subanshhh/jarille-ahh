@@ -13,6 +13,8 @@ public class EnemyAI : MonoBehaviour
     private float wanderTimer;
     private float wanderInterval = 2f;
 
+    public EnemyCombat combatData;
+
     public LayerMask groundLayer;
 
     void Start()
@@ -23,6 +25,11 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+        if (CombatManager.Instance != null && CombatManager.Instance.isInCombat)
+        {
+            movement = Vector2.zero;
+            return;
+        }
         float distance = Vector2.Distance(transform.position, player.position);
 
         if (distance <= detectionRange)
@@ -37,6 +44,11 @@ public class EnemyAI : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (CombatManager.Instance != null && CombatManager.Instance.isInCombat)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
         Vector2 nextPos = rb.position + movement * moveSpeed * Time.fixedDeltaTime;
 
         // Check if next position is still on ground
@@ -69,17 +81,19 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    bool hasTriggered = false;
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            CombatManager.Instance.StartCombat(this);
+            CombatManager.Instance.StartCombat(this, combatData);
         }
     }
 
     //void StartCombat()
     ///{
-     //   CombatManager.Instance.StartCombat();
-      //  gameObject.SetActive(false);
-  //  }
+    //   CombatManager.Instance.StartCombat();
+    //  gameObject.SetActive(false);
+    //  }
 }

@@ -15,8 +15,7 @@ public class EnemyCombat : MonoBehaviour
 
     void Awake()
     {
-        currentHealth = maxHealth;
-        UpdateHealthUI();
+        currentHP = maxHP;
     }
 
     // Attack all alive characters with random damage
@@ -60,5 +59,14 @@ public class EnemyCombat : MonoBehaviour
     {
         if (healthBar != null)
             healthBar.value = (float)currentHealth / maxHealth;
+    }
+    public int maxHP = 20;
+    private int currentHP;
+
+    
+
+    public void ResetEnemy()
+    {
+        currentHP = maxHP;
     }
 }

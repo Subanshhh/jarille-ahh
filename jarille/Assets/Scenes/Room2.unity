@@ -1149,6 +1149,7 @@ MonoBehaviour:
   damageNumberPrefab: {fileID: 1356743548294899825, guid: 86c8ce8d51f7b314894d2ad2c2ade212, type: 3}
   damageSpawnPoint: {fileID: 190522383}
   healthBar: {fileID: 190522384}
+  maxHP: 400
 --- !u!114 &1179097271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,6 +1165,7 @@ MonoBehaviour:
   moveSpeed: 8.5
   detectionRange: 8
   player: {fileID: 1587495394}
+  combatData: {fileID: 1179097270}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1534,6 +1536,7 @@ MonoBehaviour:
   damageNumberPrefab: {fileID: 1356743548294899825, guid: 86c8ce8d51f7b314894d2ad2c2ade212, type: 3}
   damageSpawnPoint: {fileID: 190522383}
   healthBar: {fileID: 190522384}
+  maxHP: 200
 --- !u!95 &1318231860
 Animator:
   serializedVersion: 7
@@ -1583,6 +1586,7 @@ MonoBehaviour:
   moveSpeed: 8.5
   detectionRange: 8
   player: {fileID: 1587495394}
+  combatData: {fileID: 1318231859}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -2237,6 +2241,7 @@ MonoBehaviour:
   damageNumberPrefab: {fileID: 1356743548294899825, guid: 86c8ce8d51f7b314894d2ad2c2ade212, type: 3}
   damageSpawnPoint: {fileID: 190522383}
   healthBar: {fileID: 190522384}
+  maxHP: 300
 --- !u!114 &1902404167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2252,6 +2257,7 @@ MonoBehaviour:
   moveSpeed: 8.5
   detectionRange: 8
   player: {fileID: 1587495394}
+  combatData: {fileID: 1902404166}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

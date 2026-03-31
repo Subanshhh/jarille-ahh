@@ -31,6 +31,7 @@ public class CombatManager : MonoBehaviour
 
     public EnemyAI currentEnemy; // 👈 add this
 
+    public bool isInCombat = false;
 
 
     void Awake()
@@ -148,9 +149,22 @@ public class CombatManager : MonoBehaviour
     }
 
     // Called when player collides with enemy
-    public void StartCombat(EnemyAI enemyRef)
+    public void StartCombat(EnemyAI enemyRef, EnemyCombat enemyData)
     {
-        currentEnemy = enemyRef; // 👈 store WHO started combat
+        if (isInCombat) return;
+
+        isInCombat = true;
+
+        currentEnemy = enemyRef;
+
+        // 🔥 CRITICAL LINE
+        enemy = enemyData;
+
+        // 🔥 EXTRA SAFETY RESET
+        if (enemy != null)
+        {
+            enemy.ResetEnemy(); // we'll add this next
+        }
 
         AudioManager.Instance.PlayCombat();
 
@@ -165,8 +179,8 @@ public class CombatManager : MonoBehaviour
         if (party.Count > 0)
             party[0].SetHighlight(true);
 
-        Debug.Log("Combat Started");
-    }
+        Debug.Log("Combat Started with " + enemyRef.name);
+    }   
     public void CurrentCharacterNormalAttack()
     {
         CharacterCombat c = GetCurrentCharacter();
@@ -183,15 +197,20 @@ public class CombatManager : MonoBehaviour
     public void EndCombat()
     {
         AudioManager.Instance.PlayRoom();
-        combatPanel.SetActive(false); // hide the combat UI
-        currentCharacter = 0;          // reset turn
-        neo = 0;                       // reset NEO or keep it depending on your design
 
-        // If you want the enemy to respawn in the overworld later, re-enable it:
+        combatPanel.SetActive(false);
+        currentCharacter = 0;
+        neo = 0;
+
+        // ✅ disable ONLY the enemy you fought
         if (currentEnemy != null)
         {
-            currentEnemy.gameObject.SetActive(false); // only THIS enemy dies
+            currentEnemy.gameObject.SetActive(false);
         }
+
+        // 🔥 RESET EVERYTHING
+        currentEnemy = null;
+        isInCombat = false;
 
         Debug.Log("Combat Ended");
     }

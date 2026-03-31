@@ -796,6 +796,7 @@ MonoBehaviour:
   damageNumberPrefab: {fileID: 1356743548294899825, guid: 86c8ce8d51f7b314894d2ad2c2ade212, type: 3}
   damageSpawnPoint: {fileID: 1121420806}
   healthBar: {fileID: 5529549864760823743}
+  maxHP: 100
 --- !u!114 &1103292575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -811,6 +812,7 @@ MonoBehaviour:
   moveSpeed: 8.5
   detectionRange: 8
   player: {fileID: 4322585894448236523}
+  combatData: {fileID: 1103292574}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1257,6 +1259,7 @@ MonoBehaviour:
   moveSpeed: 8.5
   detectionRange: 8
   player: {fileID: 4322585894448236523}
+  combatData: {fileID: 1496369204773249189}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1277,6 +1280,7 @@ MonoBehaviour:
   damageNumberPrefab: {fileID: 1356743548294899825, guid: 86c8ce8d51f7b314894d2ad2c2ade212, type: 3}
   damageSpawnPoint: {fileID: 1121420806}
   healthBar: {fileID: 5529549864760823743}
+  maxHP: 50
 --- !u!1001 &1532610054203056354
 PrefabInstance:
   m_ObjectHideFlags: 0
