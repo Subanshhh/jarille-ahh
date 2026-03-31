@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/KnightScene.unity
     guid: a913e30afb8fae245bb0dd3a07754482
+  - enabled: 1
+    path: Assets/Scenes/Ending.unity
+    guid: 97df7f1c50c1c64419d396ef2fdfbf5e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

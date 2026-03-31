@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public string Scenename;
     void Start()
     {
         AudioManager.Instance.PlayMainMenu();
@@ -11,7 +12,7 @@ public class MainMenu : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey("RoomKey"))
         {
-            SceneManager.LoadScene("TestScene"); // first room
+            SceneManager.LoadScene(Scenename); // first room
             return;
         }
 
