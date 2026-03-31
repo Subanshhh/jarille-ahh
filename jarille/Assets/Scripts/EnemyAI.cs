@@ -73,13 +73,13 @@ public class EnemyAI : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            StartCombat();
+            CombatManager.Instance.StartCombat(this);
         }
     }
 
-    void StartCombat()
-    {
-        CombatManager.Instance.StartCombat();
-        gameObject.SetActive(false);
-    }
+    //void StartCombat()
+    ///{
+     //   CombatManager.Instance.StartCombat();
+      //  gameObject.SetActive(false);
+  //  }
 }

@@ -24,17 +24,21 @@ public class PlayerMovement : MonoBehaviour
     public List<Vector2> positionHistory = new List<Vector2>();
     public float recordDistance = 0.1f;
 
-    private Animator animator;
+    
 
     public float interactDistance = 1.5f;
     private Vector2 lastMoveDirection = Vector2.down;
 
+    Animator anim;
+    
+
+    float lastVertical = -1f; // start facing down
     //at awake, the rigidbody and controls are setup
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         controls = new PlayerControls();
-        animator = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
     }
 
     // controls are enabled
@@ -66,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         }
         movement = input.normalized;
 
-        animator.SetFloat("Speed", movement.magnitude);
+        //animator.SetFloat("Speed", movement.magnitude);
 
         if (controls.Player.Interact.triggered)
         {
@@ -79,6 +83,26 @@ public class PlayerMovement : MonoBehaviour
                 TryInteract();
             }
         }
+        movement = UnityEngine.InputSystem.Keyboard.current != null
+    ? new Vector2(
+        (UnityEngine.InputSystem.Keyboard.current.dKey.isPressed ? 1 : 0) +
+        (UnityEngine.InputSystem.Keyboard.current.aKey.isPressed ? -1 : 0),
+        (UnityEngine.InputSystem.Keyboard.current.wKey.isPressed ? 1 : 0) +
+        (UnityEngine.InputSystem.Keyboard.current.sKey.isPressed ? -1 : 0)
+    )
+    : Vector2.zero;
+
+        // Save last vertical direction
+        if (movement.y != 0)
+        {
+            lastVertical = movement.y;
+        }
+
+        // Send to animator
+        anim.SetFloat("MoveX", movement.x);
+        anim.SetFloat("MoveY", movement.y);
+        anim.SetFloat("LastVertical", lastVertical);
+        anim.SetBool("IsMoving", movement != Vector2.zero);
     }
 
     // the linear velocity = movement(the vector in controls) x speed(we can change)

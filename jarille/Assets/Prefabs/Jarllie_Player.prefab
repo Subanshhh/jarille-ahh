@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Follower
   leader: {fileID: 5462148288517911359}
-  followIndex: 10
+  followIndex: 5
 --- !u!114 &661988670753613476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,7 +504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Follower
   leader: {fileID: 5462148288517911359}
-  followIndex: 30
+  followIndex: 15
 --- !u!114 &415123969430461034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,7 +645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Follower
   leader: {fileID: 5462148288517911359}
-  followIndex: 20
+  followIndex: 10
 --- !u!114 &2562186255323670481
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,6 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    void Start()
+    {
+        AudioManager.Instance.PlayMainMenu();
+    }
     public void ContinueGame()
     {
         if (!PlayerPrefs.HasKey("RoomKey"))

@@ -29,7 +29,9 @@ public class CombatManager : MonoBehaviour
     public GameObject youDiedPanel;
     public string firstSceneName = "TestScene";
 
-    
+    public EnemyAI currentEnemy; // 👈 add this
+
+
 
     void Awake()
     {
@@ -146,14 +148,17 @@ public class CombatManager : MonoBehaviour
     }
 
     // Called when player collides with enemy
-    public void StartCombat()
+    public void StartCombat(EnemyAI enemyRef)
     {
+        currentEnemy = enemyRef; // 👈 store WHO started combat
+
+        AudioManager.Instance.PlayCombat();
+
         neo = 0;
         UpdateNeoUI();
         combatPanel.SetActive(true);
         currentCharacter = 0;
 
-        // Turn on first character highlight
         foreach (var c in party)
             c.SetHighlight(false);
 
@@ -177,13 +182,16 @@ public class CombatManager : MonoBehaviour
     }
     public void EndCombat()
     {
+        AudioManager.Instance.PlayRoom();
         combatPanel.SetActive(false); // hide the combat UI
         currentCharacter = 0;          // reset turn
         neo = 0;                       // reset NEO or keep it depending on your design
 
         // If you want the enemy to respawn in the overworld later, re-enable it:
-        if (enemy != null)
-            enemy.gameObject.SetActive(false);
+        if (currentEnemy != null)
+        {
+            currentEnemy.gameObject.SetActive(false); // only THIS enemy dies
+        }
 
         Debug.Log("Combat Ended");
     }
