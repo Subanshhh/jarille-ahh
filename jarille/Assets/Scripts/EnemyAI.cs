@@ -25,6 +25,12 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+
+        if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
+        {
+            movement = Vector2.zero;
+            return;
+        }
         if (CombatManager.Instance != null && CombatManager.Instance.isInCombat)
         {
             movement = Vector2.zero;
@@ -44,6 +50,11 @@ public class EnemyAI : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
         if (CombatManager.Instance != null && CombatManager.Instance.isInCombat)
         {
             rb.linearVelocity = Vector2.zero;
