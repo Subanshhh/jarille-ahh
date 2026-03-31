@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour
 
     public GameObject dialoguePanel;
     public TMP_Text dialogueText;
-    //public TMP_Text nameText;
+   
     public Image portraitImage;
 
     private Queue<DialogueLine> lines = new Queue<DialogueLine>();
@@ -54,8 +54,7 @@ public class DialogueManager : MonoBehaviour
 
         DialogueLine line = lines.Dequeue();
 
-        // Update UI
-        //nameText.text = line.characterName;
+       
         portraitImage.sprite = line.characterSprite;
 
         StartCoroutine(TypeLine(line.text));

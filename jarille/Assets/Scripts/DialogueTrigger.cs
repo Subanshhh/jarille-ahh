@@ -8,10 +8,10 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            // Start dialogue
+            
             DialogueManager.Instance.StartDialogue(dialogueLines);
 
-            // Destroy trigger immediately
+            
             Destroy(gameObject);
         }
     }

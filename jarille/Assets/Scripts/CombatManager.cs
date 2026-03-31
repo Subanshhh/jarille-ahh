@@ -29,7 +29,7 @@ public class CombatManager : MonoBehaviour
     public GameObject youDiedPanel;
     public string firstSceneName = "TestScene";
 
-    public EnemyAI currentEnemy; // 👈 add this
+    public EnemyAI currentEnemy; 
 
     public bool isInCombat = false;
 
@@ -39,7 +39,7 @@ public class CombatManager : MonoBehaviour
         Instance = this;
     }
 
-    // ✅ This is the function the buttons call
+    
     public CharacterCombat GetCurrentCharacter()
     {
         if (party == null || party.Count == 0)
@@ -56,14 +56,14 @@ public class CombatManager : MonoBehaviour
         if (neoText != null)
             neoText.text = "NEO: " + neo + " / " + maxNeo;
     }
-    // Called by CharacterCombat after each turn
+    
     public void CharacterFinishedTurn()
     {
-        // Turn off previous highlight if in range
+       
         if (currentCharacter < party.Count)
             party[currentCharacter].SetHighlight(false);
 
-        // Move to next alive character
+        
         do
         {
             currentCharacter++;
@@ -71,12 +71,12 @@ public class CombatManager : MonoBehaviour
 
         if (currentCharacter >= party.Count)
         {
-            // All characters done, start enemy turn
+            
             StartCoroutine(EnemyTurn());
         }
         else
         {
-            // Turn on next character highlight
+            
             party[currentCharacter].SetHighlight(true);
             Debug.Log("Next character: " + GetCurrentCharacter()?.characterName);
         }
@@ -84,11 +84,11 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        // Turn off all highlights
+        
         foreach (var c in party)
             c.SetHighlight(false);
 
-        // Check if all characters are dead
+        
         bool anyAlive = false;
         foreach (var c in party)
             if (c.IsAlive()) anyAlive = true;
@@ -102,12 +102,12 @@ public class CombatManager : MonoBehaviour
             yield break;
         }
 
-        // Enemy attacks
+        
         enemy.Attack(party);
 
         yield return new WaitForSeconds(1f);
 
-        // Reset to first alive character
+        
         currentCharacter = 0;
         while (currentCharacter < party.Count && !party[currentCharacter].IsAlive())
             currentCharacter++;
@@ -119,7 +119,7 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
-            // Everyone dead after enemy attack
+            
             Debug.Log("All characters died during enemy attack");
             StartCoroutine(HandleDeath());
 
@@ -134,7 +134,7 @@ public class CombatManager : MonoBehaviour
         if (youDiedPanel != null)
             youDiedPanel.SetActive(true);
 
-        yield return new WaitForSeconds(2f); // dramatic pause 😤
+        yield return new WaitForSeconds(2f); 
 
         SceneManager.LoadScene(firstSceneName);
     }
@@ -148,7 +148,7 @@ public class CombatManager : MonoBehaviour
         Debug.Log("NEO: " + neo);
     }
 
-    // Called when player collides with enemy
+    
     public void StartCombat(EnemyAI enemyRef, EnemyCombat enemyData)
     {
         if (isInCombat) return;
@@ -157,13 +157,13 @@ public class CombatManager : MonoBehaviour
 
         currentEnemy = enemyRef;
 
-        // 🔥 CRITICAL LINE
+        
         enemy = enemyData;
 
-        // 🔥 EXTRA SAFETY RESET
+       
         if (enemy != null)
         {
-            enemy.ResetEnemy(); // we'll add this next
+            enemy.ResetEnemy(); 
         }
 
         AudioManager.Instance.PlayCombat();
@@ -202,13 +202,13 @@ public class CombatManager : MonoBehaviour
         currentCharacter = 0;
         neo = 0;
 
-        // ✅ disable ONLY the enemy you fought
+        
         if (currentEnemy != null)
         {
             currentEnemy.gameObject.SetActive(false);
         }
 
-        // 🔥 RESET EVERYTHING
+        
         currentEnemy = null;
         isInCombat = false;
 

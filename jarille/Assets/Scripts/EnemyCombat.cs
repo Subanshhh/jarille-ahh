@@ -11,21 +11,21 @@ public class EnemyCombat : MonoBehaviour
     public Transform damageSpawnPoint;
 
     [Header("UI")]
-    public Slider healthBar; // assign this in the inspector
+    public Slider healthBar; 
 
     void Awake()
     {
         currentHP = maxHP;
     }
 
-    // Attack all alive characters with random damage
+    
     public void Attack(List<CharacterCombat> party)
     {
         foreach (var character in party)
         {
             if (character.IsAlive())
             {
-                int damage = Random.Range(1, 26); // 1-15
+                int damage = Random.Range(1, 26); 
                 character.TakeDamage(damage);
                 Debug.Log(name + " attacked " + character.characterName + " for " + damage + " damage");
             }
@@ -39,7 +39,7 @@ public class EnemyCombat : MonoBehaviour
 
         Debug.Log(name + " HP: " + currentHealth);
 
-        UpdateHealthUI(); // update slider whenever damaged
+        UpdateHealthUI(); 
 
         if (damageNumberPrefab != null && damageSpawnPoint != null)
         {

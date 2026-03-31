@@ -6,7 +6,7 @@ public class Interactable : MonoBehaviour
 
     public void Interact()
     {
-        // 🚫 Don't restart dialogue if it's already active
+        
         if (DialogueManager.Instance.isDialogueActive) return;
 
         DialogueManager.Instance.StartDialogue(dialogueLines);

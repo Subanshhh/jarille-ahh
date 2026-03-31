@@ -45,12 +45,12 @@ public class CharacterCombat : MonoBehaviour
             return;
         }
 
-        // Spend NEO
+        
         CombatManager.Instance.GainNeo(-2);
 
         int damage;
 
-        // 90% success chance
+        
         if (Random.value <= 0.9f)
         {
             damage = normalMaxDamage;
@@ -87,25 +87,25 @@ public class CharacterCombat : MonoBehaviour
             healthBar.value = (float)currentHealth / maxHealth;
     }
 
-    // Turn highlight
+    
     public void SetHighlight(bool isActive)
     {
         if (highlight != null)
         {
             if (!IsAlive())
             {
-                // Max out the highlight color (e.g., red overlay) to show dead
+                
                 highlight.SetActive(true);
                 var img = highlight.GetComponent<UnityEngine.UI.Image>();
                 if (img != null)
-                    img.color = Color.red; // fully red when dead
+                    img.color = Color.red; // 
             }
             else
             {
                 highlight.SetActive(isActive);
                 var img = highlight.GetComponent<UnityEngine.UI.Image>();
                 if (img != null)
-                    img.color = Color.yellow; // normal turn highlight color
+                    img.color = Color.yellow; 
             }
         }
     }

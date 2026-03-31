@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &19067543
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -341,7 +341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &602151733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,7 +526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &871905682
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -627,7 +627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &913146371
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1714,6 +1714,14 @@ PrefabInstance:
       propertyPath: fieldCollider
       value: 
       objectReference: {fileID: 103927677}
+    - target: {fileID: 2958663492611387921, guid: 10ae2ae0929f01f4ba0762d98073077d, type: 3}
+      propertyPath: verticalPadding
+      value: 36.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958663492611387921, guid: 10ae2ae0929f01f4ba0762d98073077d, type: 3}
+      propertyPath: horizontalPadding
+      value: 36.3
+      objectReference: {fileID: 0}
     - target: {fileID: 3834299931160276236, guid: 10ae2ae0929f01f4ba0762d98073077d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
