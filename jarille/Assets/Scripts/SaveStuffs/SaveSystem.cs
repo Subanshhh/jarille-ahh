@@ -26,7 +26,7 @@ public static class SaveSystem
 
         for (int i = 0; i < party.Count; i++)
         {
-            data.partyHealth[i] = party[i].currentHealth;
+            data.partyHealth[i] = party[i].currentHP;
         }
 
         

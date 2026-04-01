@@ -26,9 +26,11 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
 
-        if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
+        if (CombatManager.Instance != null &&
+    (CombatManager.Instance.isInCombat || CombatManager.Instance.isPaused))
         {
             movement = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
             return;
         }
         if (CombatManager.Instance != null && CombatManager.Instance.isInCombat)

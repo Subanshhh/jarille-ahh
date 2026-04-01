@@ -56,23 +56,20 @@ public class PlayerMovement : MonoBehaviour
     // the player's move action of vector 2 should be normalized for movement
     void Update()
     {
-        if (CombatManager.Instance != null && CombatManager.Instance.isInCombat)
+        if (CombatManager.Instance != null &&
+    (CombatManager.Instance.isInCombat || CombatManager.Instance.isPaused))
         {
-            return; // 🚫 stop movement completely
+            rb.linearVelocity = Vector2.zero;
+            return;
         }
-        Vector2 input = controls.Player.Move.ReadValue<Vector2>();
 
-        if (input != Vector2.zero)
-        {
-            lastMoveDirection = input.normalized;
-        }
 
         if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
         {
             movement = Vector2.zero;
             return;
         }
-        movement = input.normalized;
+        
 
         //animator.SetFloat("Speed", movement.magnitude);
 

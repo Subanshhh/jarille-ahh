@@ -1,12 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class CharacterCombat : MonoBehaviour
 {
     public string characterName;
-    public int maxHealth = 50;
-    public int currentHealth;
+    //public int maxHealth = 50;
+    //public int currentHealth;
 
     public GameObject damageNumberPrefab;
     public Transform damageSpawnPoint;
@@ -21,10 +21,22 @@ public class CharacterCombat : MonoBehaviour
 
     void Awake()
     {
-        currentHealth = maxHealth;
+        currentHP = maxHP;
         UpdateHealthUI();
     }
 
+    public int maxHP = 100;
+    public int currentHP;
+
+    public void Heal(int amount)
+    {
+        currentHP += amount;
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+
+        UpdateHealthUI(); // 👈 important
+
+        Debug.Log(characterName + " healed for " + amount);
+    }
     public void NormalAttack()
     {
         Debug.Log("NormalAttack pressed for " + characterName);
@@ -67,10 +79,10 @@ public class CharacterCombat : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        currentHealth = Mathf.Max(currentHealth, 0);
+        currentHP -= damage;
+        currentHP = Mathf.Max(currentHP , 0);
         UpdateHealthUI();
-        Debug.Log(characterName + " HP: " + currentHealth);
+        Debug.Log(characterName + " HP: " + currentHP);
 
         UIShake.Instance.Shake(18f, 0.15f);
 
@@ -81,10 +93,10 @@ public class CharacterCombat : MonoBehaviour
         }
     }
 
-    void UpdateHealthUI()
+    public void UpdateHealthUI()
     {
         if (healthBar != null)
-            healthBar.value = (float)currentHealth / maxHealth;
+            healthBar.value = (float)currentHP / maxHP;
     }
 
     
@@ -111,6 +123,6 @@ public class CharacterCombat : MonoBehaviour
     }
     public bool IsAlive()
     {
-        return currentHealth > 0;
+        return currentHP > 0;
     }
 }

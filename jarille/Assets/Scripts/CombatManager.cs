@@ -33,13 +33,23 @@ public class CombatManager : MonoBehaviour
 
     public bool isInCombat = false;
 
+    public bool isPaused = false;
+    public GameObject pausePanel;
+
 
     void Awake()
     {
         Instance = this;
     }
 
-    
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+
+        pausePanel.SetActive(isPaused);
+
+        Debug.Log(isPaused ? "Game Paused" : "Game Resumed");
+    }
     public CharacterCombat GetCurrentCharacter()
     {
         if (party == null || party.Count == 0)
@@ -125,6 +135,30 @@ public class CombatManager : MonoBehaviour
 
             yield break;
         }
+    }
+    public void CurrentCharacterHeal()
+    {
+        CharacterCombat c = GetCurrentCharacter();
+
+        if (c == null) return;
+
+        
+        if (neo < 3)
+        {
+            Debug.Log("Not enough NEO!");
+            return;
+        }
+
+        
+        GainNeo(-3);
+
+        
+        c.Heal(50);
+        
+
+
+
+        CharacterFinishedTurn();
     }
 
     IEnumerator HandleDeath()
@@ -213,5 +247,12 @@ public class CombatManager : MonoBehaviour
         isInCombat = false;
 
         Debug.Log("Combat Ended");
+    }
+    void Update()
+    {
+        if (UnityEngine.InputSystem.Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            TogglePause();
+        }
     }
 }

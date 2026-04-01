@@ -25,7 +25,7 @@ public class SaveLoader : MonoBehaviour
         
         for (int i = 0; i < CombatManager.Instance.party.Count; i++)
         {
-            CombatManager.Instance.party[i].currentHealth = data.partyHealth[i];
+            CombatManager.Instance.party[i].currentHP = data.partyHealth[i];
         }
     }
 }
